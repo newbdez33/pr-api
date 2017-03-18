@@ -49,6 +49,7 @@ $app->post('/p', function ($request, $response, $args) {
     $q = $parsedBody['q'];
     $data = array("q"=>$q);
     try {
+        //https://github.com/schmiddim/amazon-asin-parser
         $fetcher = new \Amazon\AsinParser($q);
         $data["asin"] = $fetcher->getAsin();
         $data["aac"] = $fetcher->getTld();
@@ -73,6 +74,7 @@ $app->post('/p', function ($request, $response, $args) {
         $data["error"] = $e->getMessage();
     }
 
+    //http://docs.pixel-web.org/apai-io/master/chapters/installation.html
     $apaiIo = new ApaiIO($conf);
     $lookup = new Lookup();
     $lookup->setItemId($data["asin"]);
