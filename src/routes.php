@@ -1,4 +1,9 @@
 <?php
+require "../aws.inc.php";
+
+use ApaiIO\Configuration\GenericConfiguration;
+use ApaiIO\ApaiIO;
+use ApaiIO\Operations\Lookup;
 // Routes
 
 $app->get('/[{name}]', function ($request, $response, $args) {
@@ -10,6 +15,8 @@ $app->get('/[{name}]', function ($request, $response, $args) {
 });
 
 $fake_data = array(
+        "acc" => "co.jp",
+        "asin" => "asin",
     	"photo" => "http://www.fakeimage.com/1.png",
     	"created_at" => "2015-08-05T08:40:51.620Z",
     	"title" => "サッポロ 麦とホップ 350ml×24本",
@@ -37,11 +44,42 @@ $app->get('/p/{pid}', function ($request, $response, $args) {
 });
 
 $app->post('/p', function ($request, $response, $args) {
-	global $fake_data;
+	
     $parsedBody = $request->getParsedBody();
     $q = $parsedBody['q'];
-    $fake_data["pid"] = "0";
-    $fake_data["q"] = $q;
-    $newResponse = $response->withJson($fake_data);
+    $data = array("q"=>$q);
+    try {
+        $fetcher = new \Amazon\AsinParser($q);
+        $data["asin"] = $fetcher->getAsin();
+        $data["aac"] = $fetcher->getTld();
+
+    }catch( Exception $e ) {
+        // print_r($e); exit;
+        $data["error"] = $e->getMessage();
+    }
+    
+    try {
+        $conf = new GenericConfiguration();
+        $client = new \GuzzleHttp\Client();
+        $req = new \ApaiIO\Request\GuzzleRequest($client);
+
+        $conf
+            ->setCountry('co.jp')
+            ->setAccessKey(AWS_ASSESS_KEY)
+            ->setSecretKey(AWS_SECRET_KEY)
+            ->setAssociateTag(AWS_ASSOCIATE_TAG)
+            ->setRequest($req);
+    } catch ( Exception $e ) {
+        $data["error"] = $e->getMessage();
+    }
+
+    $apaiIo = new ApaiIO($conf);
+    $lookup = new Lookup();
+    $lookup->setItemId($data["asin"]);
+    $lookup->setResponseGroup(array('Small', 'Offers')); // More detailed information
+    $r = $apaiIo->runOperation($lookup);
+    print_r($r); exit;
+
+    $newResponse = $response->withJson($data);
     return $newResponse;
 });

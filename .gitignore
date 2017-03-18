@@ -16,3 +16,4 @@ DerivedData
 .DS_Store
 /logs/*
 !/logs/README.md
+aws.inc.php

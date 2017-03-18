@@ -8,6 +8,9 @@ class ComposerStaticInitf25ecb30e264edd982cae1b1d2ed9b54
 {
     public static $files = array (
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -43,6 +46,12 @@ class ComposerStaticInitf25ecb30e264edd982cae1b1d2ed9b54
         array (
             'Interop\\Container\\' => 18,
         ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+        ),
         'F' => 
         array (
             'FastRoute\\' => 10,
@@ -51,6 +60,10 @@ class ComposerStaticInitf25ecb30e264edd982cae1b1d2ed9b54
         array (
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
+        ),
+        'A' => 
+        array (
+            'ApaiIO\\' => 7,
         ),
     );
 
@@ -101,6 +114,18 @@ class ComposerStaticInitf25ecb30e264edd982cae1b1d2ed9b54
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
@@ -112,6 +137,10 @@ class ComposerStaticInitf25ecb30e264edd982cae1b1d2ed9b54
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'ApaiIO\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/exeu/apai-io/src/ApaiIO',
         ),
     );
 
@@ -125,6 +154,13 @@ class ComposerStaticInitf25ecb30e264edd982cae1b1d2ed9b54
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+        ),
+        'A' => 
+        array (
+            'Amazon\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/schmiddim/amazon-asin-fetcher/src',
             ),
         ),
     );

@@ -91,7 +91,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"keyValues":[["q","test",true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"keyValues":[["q","https:\\/\\/www.amazon.co.jp\\/gp\\/product\\/B01G51PH1Y\\/ref=ox_sc_act_title_1?ie=UTF8\u2600psc=1\u2600smid=AN1VRQENFRJN5",true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">new item post</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
