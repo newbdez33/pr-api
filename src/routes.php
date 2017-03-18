@@ -65,22 +65,22 @@ $app->post('/p', function ($request, $response, $args) {
         $req = new \ApaiIO\Request\GuzzleRequest($client);
 
         $conf
-            ->setCountry('co.jp')
+            ->setCountry($data["aac"])
             ->setAccessKey(AWS_ASSESS_KEY)
             ->setSecretKey(AWS_SECRET_KEY)
             ->setAssociateTag(AWS_ASSOCIATE_TAG)
             ->setRequest($req);
+
+        //http://docs.pixel-web.org/apai-io/master/chapters/installation.html
+        $apaiIo = new ApaiIO($conf);
+        $lookup = new Lookup();
+        $lookup->setItemId($data["asin"]);
+        $lookup->setResponseGroup(array('Small', 'Offers')); // More detailed information
+        $r = $apaiIo->runOperation($lookup);
+        $data["response"] = $r;
     } catch ( Exception $e ) {
         $data["error"] = $e->getMessage();
     }
-
-    //http://docs.pixel-web.org/apai-io/master/chapters/installation.html
-    $apaiIo = new ApaiIO($conf);
-    $lookup = new Lookup();
-    $lookup->setItemId($data["asin"]);
-    $lookup->setResponseGroup(array('Small', 'Offers')); // More detailed information
-    $r = $apaiIo->runOperation($lookup);
-    print_r($r); exit;
 
     $newResponse = $response->withJson($data);
     return $newResponse;
