@@ -17,7 +17,9 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "schmiddim/amazon-asin-fetcher": "^1.0",
-        "exeu/apai-io": "~2.0"
+        "exeu/apai-io": "~2.0",
+        "ramsey/uuid": "~3.6",
+        "aws/aws-sdk-php": "2.*"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
