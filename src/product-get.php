@@ -25,22 +25,26 @@ $fake_data = array(
 function jsonObjectFromItem($item) {
     $marshaler = new Marshaler();
     $data = $marshaler->unmarshalItem($item);
-    $data["pid"] = $data["id"];
-    unset($data["id"]);
     return $data;
 }
 
-$app->get('/p/{pid}', function ($request, $response, $args) {
-	global $db;
-	$pid = $request->getAttribute('pid');
+function getItem($pid) {
+    global $db;
     $result = $db->getItem(array(
         'ConsistentRead' => true,
-        'TableName' => 'products',
+        'TableName' => 'products_amazon',
         'Key'       => array(
-            'id'   => array('S' => $pid)
+            'asin'   => array('S' => $pid)
         )
     ));
+    return $result;
+}
 
+
+$app->get('/p/{pid}', function ($request, $response, $args) {
+	
+	$pid = $request->getAttribute('pid');
+    $result = getItem($pid);
     // print_r($result); exit;
     if ( is_object($result) && is_array($result["Item"]) ) {
         $data = jsonObjectFromItem($result["Item"]);
