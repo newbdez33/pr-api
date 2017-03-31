@@ -1,8 +1,24 @@
 <?php
 use Aws\DynamoDb\Marshaler;
+use Aws\Sqs\SqsClient;
+
+$q = SqsClient::factory(array(
+    'credentials' => array(
+        'key'    => J_ASSESS_KEY,
+        'secret' => J_SECRET_KEY,
+    ),
+    'region' => 'ap-northeast-1'
+));
 
 function putItem($item) {
-	global $db;
+	global $db, $q;
+
+    $r = $q->sendMessage(array(
+        "QueueUrl" => "https://sqs.ap-northeast-1.amazonaws.com/426901641069/fetch_jobs",
+        "MessageBody" => json_encode($item)
+    ));
+    $msid = $r['MessageId'];
+    //TODO log & error handling
 
 	$marshaler = new Marshaler();
     $data = $marshaler->marshalItem($item);
@@ -10,10 +26,9 @@ function putItem($item) {
 	    'TableName' => 'products_amazon',
 	    'Item' => $data
 	));
+    //Error handling
 
     return $result;
-
-	//TODO SQS add a fetch job
 }
 
 $app->post('/p', function ($request, $response, $args) {
