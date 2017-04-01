@@ -35,6 +35,7 @@ $app->post('/p', function ($request, $response, $args) {
 	global $db;
     $parsedBody = $request->getParsedBody();
     $url = $parsedBody['url'];
+    $url = str_replace("/gp/aw/d/", "/dp/", $url);  //convert mobile url to desktop url
     $title = $parsedBody['title'];
     if ( is_null($title )) {
         $title = "商品抓取中";
