@@ -44,6 +44,7 @@ $app->post('/p', function ($request, $response, $args) {
         $fetcher = new \Amazon\AsinParser($url);
 
         $item["asin"]       = $fetcher->getAsin();
+        $item["url"]        = $url;
         $result = getItem($item["asin"]);
         if ( is_object($result) && is_array($result["Item"]) ) {
             $data['p'] = jsonObjectFromItem($result["Item"]);
