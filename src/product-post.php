@@ -47,10 +47,15 @@ $app->post('/p', function ($request, $response, $args) {
         $item["url"]        = $url;
         $result = getItem($item["asin"]);
         if ( is_object($result) && is_array($result["Item"]) ) {
-            $data['p'] = jsonObjectFromItem($result["Item"]);
-            $data["asin"] = $item["asin"];
-            $newResponse = $response->withJson($data);
-            return $newResponse;
+
+            $obj = jsonObjectFromItem($result["Item"]);
+            if ( $obj["title"] != "" ) {
+                $data['p'] = $obj;
+                $data["asin"] = $item["asin"];
+                $newResponse = $response->withJson($data);
+                return $newResponse;
+            }
+            
         }
         $item["aac"]        = $fetcher->getTld();
         $item["created_at"] = time();
