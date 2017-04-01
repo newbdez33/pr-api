@@ -1,14 +1,14 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
-    "license": "MIT",
+    "name": "salmonapps/pr",
+    "description": "Amazon price tracker bot",
+    "keywords": ["amazon", "price", "tracker", "history"],
+    "homepage": "http://www.salmonapps.com/",
+    "license": "Private",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Jacky",
+            "email": "newbdez33@gmail.com",
+            "homepage": "http://www.salmonapps.com/"
         }
     ],
     "require": {
