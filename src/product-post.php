@@ -51,10 +51,10 @@ $app->post('/p', function ($request, $response, $args) {
             $obj = jsonObjectFromItem($result["Item"]);
             if ( $obj["title"] != "" ) {
                 $data['p'] = $obj;
-                $data["asin"] = $item["asin"];
-                $newResponse = $response->withJson($data);
-                return $newResponse;
             }
+            $data["asin"] = $item["asin"];
+            $newResponse = $response->withJson($data);
+            return $newResponse;
             
         }
         $item["aac"]        = $fetcher->getTld();
