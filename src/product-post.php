@@ -39,6 +39,7 @@ $app->post('/p', function ($request, $response, $args) {
     if ( is_null($title )) {
         $title = "商品抓取中";
     }
+    $this->logger->info("p: {$url}");
     if ( in_array('photo', $parsedBody)) $photo = $parsedBody['photo'];
     if ( in_array('currency', $parsedBody)) $currency = $parsedBody['currency'];
     
