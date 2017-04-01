@@ -36,13 +36,7 @@ $app->post('/p', function ($request, $response, $args) {
     $parsedBody = $request->getParsedBody();
     $url = $parsedBody['url'];
     $url = str_replace("/gp/aw/d/", "/dp/", $url);  //convert mobile url to desktop url
-    $title = $parsedBody['title'];
-    if ( is_null($title )) {
-        $title = "商品抓取中";
-    }
     $this->logger->info("p: {$url}");
-    if ( in_array('photo', $parsedBody)) $photo = $parsedBody['photo'];
-    if ( in_array('currency', $parsedBody)) $currency = $parsedBody['currency'];
     
     try {
 
@@ -52,24 +46,17 @@ $app->post('/p', function ($request, $response, $args) {
         $item["asin"]       = $fetcher->getAsin();
         $result = getItem($item["asin"]);
         if ( is_object($result) && is_array($result["Item"]) ) {
-            $data = jsonObjectFromItem($result["Item"]);
+            $data['p'] = jsonObjectFromItem($result["Item"]);
+            $data["asin"] = $item["asin"];
             $newResponse = $response->withJson($data);
             return $newResponse;
         }
-
         $item["aac"]        = $fetcher->getTld();
-        $item["url"]        = $url;
-    	$item["title"]      = $title;
-        if ( !is_null($photo )) {
-            $item["photo"]      = $photo;
-        }
-        if ( !is_null($currency )) {
-            $item["currency"]      = $currency;
-        }
         $item["created_at"] = time();
         $result = putItem($item);
+
         if ( $result ) {
-        	$data = $item;
+        	$data["asin"] = $item["asin"];
         }else {
         	$data["error"] = "data error, please try again.";
         }
