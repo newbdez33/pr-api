@@ -50,7 +50,7 @@ $app->post('/p', function ($request, $response, $args) {
 
             $obj = jsonObjectFromItem($result["Item"]);
             if ( $obj["title"] != "" ) {
-                $data['p'] = $obj;
+                $data = $obj;
             }
             $data["asin"] = $item["asin"];
             $newResponse = $response->withJson($data);
