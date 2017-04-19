@@ -30,4 +30,5 @@ $app->get('/[{name}]', function ($request, $response, $args) {
 
 
 include "product-get.php";
+include "product-history.php";
 include "product-post.php";
