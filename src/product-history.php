@@ -25,9 +25,13 @@ $app->get('/h/{pid}', function ($request, $response, $args) {
         print_r($e); exit;
     }
     
-    print_r($result); exit;
-    if ( is_object($result) && is_array($result["Item"]) ) {
-        $data = jsonObjectFromItem($result["Item"]);
+    //print_r($result['Items']); exit;
+    $data = array();
+    if ( is_object($result) && is_array($result["Items"]) ) {
+        foreach ($result["Items"] as $key => $value) {
+            $item = jsonObjectFromItem($value);
+            $data[] = $item;
+        }
     }else {
         $data["error"] = "the product is not found.";
     }
