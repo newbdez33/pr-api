@@ -31,7 +31,7 @@ function jsonObjectFromItem($item) {
 function getItem($pid) {
     global $db;
     $result = $db->getItem(array(
-        'ConsistentRead' => true,
+        // 'ConsistentRead' => true,
         'TableName' => 'products_amazon',
         'Key'       => array(
             'asin'   => array('S' => $pid)
