@@ -59,6 +59,7 @@ $app->post('/p', function ($request, $response, $args) {
         }
         $item["aac"]        = $fetcher->getTld();
         $item["created_at"] = time();
+        $item["updated_at"] = time();
         $result = putItem($item);
 
         if ( $result ) {
