@@ -78,6 +78,7 @@ $app->post('/p', function ($request, $response, $args) {
         $data["error"] = $e->getMessage();
     }
 
+    slack_post_url_notify(print_r($data, true));
     $newResponse = $response->withJson($data);
     return $newResponse;
 });
