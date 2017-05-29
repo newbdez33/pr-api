@@ -35,6 +35,10 @@ $app->post('/p', function ($request, $response, $args) {
 	global $db;
     $parsedBody = $request->getParsedBody();
     $url = $parsedBody['url'];
+
+    //slack
+    slack_post_url_notify($url);
+
     $url = str_replace("/gp/aw/d/", "/dp/", $url);  //convert mobile url to desktop url
     $this->logger->info("p: {$url}");
     
@@ -77,3 +81,22 @@ $app->post('/p', function ($request, $response, $args) {
     $newResponse = $response->withJson($data);
     return $newResponse;
 });
+
+function slack_post_url_notify($url) {
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, "https://hooks.slack.com/services/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");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"text\":\"POST: {$url}\"}");
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    $headers = array();
+    $headers[] = "Content-Type: application/x-www-form-urlencoded";
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+    }
+    curl_close ($ch);
+}
