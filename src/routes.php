@@ -12,7 +12,8 @@ $db = DynamoDbClient::factory(array(
 ));
 
 // Routes
-$app->get('/[{name}]', function ($request, $response, $args) {
+//'/[{name}]'
+$app->get('/', function ($request, $response, $args) {
     // global $db;
 
     // // Sample log message
