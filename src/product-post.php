@@ -32,6 +32,7 @@ function putItem($item) {
 }
 
 $app->get('/ping', function ($request, $response, $args) {
+    global $q;
     
     $r = $q->sendMessage(array(
         "QueueUrl" => "https://sqs.ap-northeast-1.amazonaws.com/426901641069/fetch_jobs",
