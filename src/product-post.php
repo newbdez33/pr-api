@@ -31,6 +31,20 @@ function putItem($item) {
     return $result;
 }
 
+$app->get('/ping', function ($request, $response, $args) {
+    
+    $r = $q->sendMessage(array(
+        "QueueUrl" => "https://sqs.ap-northeast-1.amazonaws.com/426901641069/fetch_jobs",
+        "MessageBody" => json_encode($item)
+    ));
+    $msid = $r['MessageId'];
+    $data["mid"] = $msid;
+    $data["response"] = "pong";
+    
+    $newResponse = $response->withJson($data);
+    return $newResponse;
+});
+
 $app->post('/p', function ($request, $response, $args) {
 	global $db;
     $parsedBody = $request->getParsedBody();
