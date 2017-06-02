@@ -42,7 +42,7 @@ $app->get('/ping', function ($request, $response, $args) {
     $data["worker"] = $msid;
 
     $r2 = $q->sendMessage(array(
-        "QueueUrl" => "https://sqs.ap-northeast-1.amazonaws.com/426901641069/fetch_jobs",
+        "QueueUrl" => "https://sqs.ap-northeast-1.amazonaws.com/426901641069/daily_queue",
         "MessageBody" => "pong"
     ));
     $msid2 = $r2['MessageId'];
