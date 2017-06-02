@@ -39,8 +39,14 @@ $app->get('/ping', function ($request, $response, $args) {
         "MessageBody" => "pong"
     ));
     $msid = $r['MessageId'];
-    $data["mid"] = $msid;
-    $data["response"] = "pong";
+    $data["worker"] = $msid;
+
+    $r2 = $q->sendMessage(array(
+        "QueueUrl" => "https://sqs.ap-northeast-1.amazonaws.com/426901641069/fetch_jobs",
+        "MessageBody" => "pong"
+    ));
+    $msid2 = $r2['MessageId'];
+    $data["bot"] = $msid2;
     
     $newResponse = $response->withJson($data);
     return $newResponse;
