@@ -79,6 +79,7 @@ $app->post('/p', function ($request, $response, $args) {
             }
             $data["asin"] = $item["asin"];
             $newResponse = $response->withJson($data);
+    	    slack_post_url_notify(print_r($data, true));
             return $newResponse;
             
         }
